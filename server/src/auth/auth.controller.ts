@@ -5,9 +5,19 @@ import { AuthService } from './auth.service';
 export class AuthController {
   constructor(private authService: AuthService) {}
 
-  @Post('signup')
-  async signup(@Body() body: { email: string; password: string; name: string }) {
-    return this.authService.signup(body.email, body.password, body.name);
+  @Post('signup-request')
+  async signupRequest(@Body() body: { email: string; password: string; name: string }) {
+    return this.authService.signupRequest(body.email, body.password, body.name);
+  }
+
+  @Post('signup-verify')
+  async signupVerify(@Body() body: { email: string; otp: string; password: string; name: string }) {
+    return this.authService.signupVerify(body.email, body.otp, body.password, body.name);
+  }
+
+  @Post('resend-otp')
+  async resendOtp(@Body() body: { email: string }) {
+    return this.authService.signupRequest(body.email, '', ''); // Reuse signupRequest for resend, password and name ignored
   }
 
   @Post('login')

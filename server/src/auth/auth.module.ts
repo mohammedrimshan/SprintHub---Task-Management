@@ -7,6 +7,8 @@ import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtStrategy } from './jwt.strategy';
 import { UsersModule } from 'src/user/users.module';
+import { EmailService } from 'src/email/email.service';
+import { OtpModule } from 'src/otp/otp.module';
 
 @Module({
   imports: [
@@ -20,8 +22,9 @@ import { UsersModule } from 'src/user/users.module';
       inject: [ConfigService],
     }),
     UsersModule,
+    OtpModule,
   ],
-  providers: [AuthService, JwtStrategy],
+  providers: [AuthService, JwtStrategy, EmailService],
   controllers: [AuthController],
 })
 export class AuthModule {}
